@@ -1,10 +1,14 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
+import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Data
 @Entity
-@Table(name = "Plano")
+@Table(name = "plano")
 public class Plano {
 
     @Id
@@ -17,29 +21,11 @@ public class Plano {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "data_vencimento", nullable = false)
+    private LocalDate dataVencimento;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
+    @OneToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }
 
