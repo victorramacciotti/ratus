@@ -1,0 +1,45 @@
+# Ignorar a pasta target do projeto Maven
+/ratus/target/
+
+# Ignorar arquivos .properties em qualquer lugar
+**/*.properties
+
+# Recomendações para projetos Maven
+# Diretórios de build e arquivos de IDE
+target/
+pom.xml.tag
+pom.xml.versions
+pom.xml.bak
+release.properties
+release-pom.xml
+/pom.xml.next
+/pom.xml.releaseBackup
+
+# Arquivos de IDEs
+.idea/
+.project
+.classpath
+.settings/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Logs
+*.log
+log/
+
+# Arquivos temporários e de backup
+*~
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de credenciais ou configurações sensíveis (se houver, adicione aqui)
+# my_secret_config.xml
+# .env
