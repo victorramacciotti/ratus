@@ -14,7 +14,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "folha_pagamento")
 public class FolhaPagamento {
@@ -36,45 +38,4 @@ public class FolhaPagamento {
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
-
-    public FolhaPagamento(){}
-
-    /*GETTER*/
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getSalarioPagoMes() {
-        return salarioPagoMes;
-    }
-
-    public LocalDate getDataPagamento() {
-        return dataPagamento;
-    }
-
-    public MesReferenteAPagamento getMesReferente() {
-        return mesReferente;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    /*SETTERS*/
-
-    public void setSalarioPagoMes(BigDecimal salarioPagoMes) {
-        this.salarioPagoMes = salarioPagoMes;
-    }
-
-    public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
-    }
-
-    public void setMesReferente(MesReferenteAPagamento mesReferente) {
-        this.mesReferente = mesReferente;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
 }

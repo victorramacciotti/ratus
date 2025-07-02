@@ -7,7 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "recepcionista")
 public class Recepcionista {
@@ -18,20 +20,4 @@ public class Recepcionista {
     @OneToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
-
-    public Recepcionista(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    /*SETTERS*/
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
 }

@@ -1,7 +1,9 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "treino")
 public class Treino {
@@ -16,29 +18,5 @@ public class Treino {
     @ManyToOne
     @JoinColumn(name = "instrutor_id")
     private Instrutor instrutor;
-
-    public Treino(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public Instrutor getInstrutor() {
-        return instrutor;
-    }
-
-    /*SETTERS*/
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setInstrutor(Instrutor instrutor) {
-        this.instrutor = instrutor;
-    }
 }
 

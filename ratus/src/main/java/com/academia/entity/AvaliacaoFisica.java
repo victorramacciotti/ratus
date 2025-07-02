@@ -10,7 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "avaliacao_fisica")
 public class AvaliacaoFisica {
@@ -31,39 +33,4 @@ public class AvaliacaoFisica {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    public AvaliacaoFisica(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getPeso() {
-        return peso;
-    }
-
-    public BigDecimal getAltura() {
-        return altura;
-    }
-    
-    public BigDecimal getImc() {
-        return imc;
-    }
-    /*SETTERS*/
-    public void setPeso(BigDecimal peso) {
-        this.peso = peso;
-    }
-
-    public void setAltura(BigDecimal altura) {
-        this.altura = altura;
-    }
-
-    public void setImc(BigDecimal imc) {
-        this.imc = imc;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 }

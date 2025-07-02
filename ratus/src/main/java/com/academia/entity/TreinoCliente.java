@@ -7,7 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "treino_cliente")
 public class TreinoCliente {
@@ -24,36 +26,5 @@ public class TreinoCliente {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    public TreinoCliente(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public String getDiasDaSemana() {
-        return diasDaSemana;
-    }
-
-    public Treino getTreino() {
-        return treino;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-    /*SETTERS*/
-    public void setDiasDaSemana(String diasDaSemana) {
-        this.diasDaSemana = diasDaSemana;
-    }
-
-    public void setTreino(Treino treino) {
-        this.treino = treino;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 
 }

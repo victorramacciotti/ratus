@@ -15,7 +15,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "faturas_cliente")
 public class FaturasCliente {
@@ -40,51 +42,4 @@ public class FaturasCliente {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    public FaturasCliente(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public LocalDate getDataPagamento() {
-        return dataPagamento;
-    }
-
-    public StatusPagamento getStatusPagamento() {
-        return statusPagamento;
-    }
-
-    public MetodoPagamento getMetodoPagamento() {
-        return metodoPagamento;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-    
-    /*SETTERS*/
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
-    }
-    public void setStatusPagamento(StatusPagamento statusPagamento) {
-        this.statusPagamento = statusPagamento;
-    }
-    
-    public void setMetodoPagamento(MetodoPagamento metodoPagamento) {
-        this.metodoPagamento = metodoPagamento;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 }

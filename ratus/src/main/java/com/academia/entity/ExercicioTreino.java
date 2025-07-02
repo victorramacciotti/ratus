@@ -1,7 +1,9 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "exercicio_treino")
 public class ExercicioTreino {
@@ -17,28 +19,5 @@ public class ExercicioTreino {
     @JoinColumn(name = "exercicio_id", nullable = false)
     private Exercicio exercicio;
 
-    public ExercicioTreino(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public Treino getTreino() {
-        return treino;
-    }
-
-    public Exercicio getExercicio() {
-        return exercicio;
-    }
-
-    /*SETTERS*/
-    public void setTreino(Treino treino) {
-        this.treino = treino;
-    }
-
-    public void setExercicio(Exercicio exercicio) {
-        this.exercicio = exercicio;
-    }
 }
 

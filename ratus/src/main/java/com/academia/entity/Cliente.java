@@ -1,7 +1,9 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -21,45 +23,5 @@ public class Cliente {
 
     @Column(nullable = false)
     private String telefone;
-
-    public Cliente(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    /*SETTERS*/
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
 }
 

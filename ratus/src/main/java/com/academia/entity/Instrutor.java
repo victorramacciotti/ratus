@@ -1,7 +1,9 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "instrutor")
 public class Instrutor {
@@ -15,30 +17,5 @@ public class Instrutor {
     @OneToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
-
-    public Instrutor(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public String getEspecialidade() {
-        return especialidade;
-    }
-
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    /*SETTERS*/
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
 }
 

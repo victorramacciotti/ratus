@@ -2,6 +2,8 @@ package com.academia.entity;
 
 import java.math.BigDecimal;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.academia.enums.EscalaTrabalho;
 
 import jakarta.persistence.Column;
@@ -12,7 +14,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "funcionario")
 public class Funcionario {
@@ -21,15 +26,17 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @CPF
     @Column(nullable = false, unique = true)
     private String cpf;
 
     @Column(nullable = false)
     private String nome;
 
+    @Email
     @Column(nullable = false, unique = true)
     private String email;
-
+    
     private String telefone;
 
     @Column(name = "escala_trabalho")
@@ -38,61 +45,5 @@ public class Funcionario {
 
     @Column(precision = 10, scale = 2)
     private BigDecimal salario;
-    
-    public Funcionario(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public EscalaTrabalho getEscalaTrabalho() {
-        return escalaTrabalho;
-    }
-
-    public BigDecimal getSalario() {
-        return salario;
-    }
-
-    /*SETTERS*/
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void setEscalaTrabalho(EscalaTrabalho escalaTrabalho) {
-        this.escalaTrabalho = escalaTrabalho;
-    }
-
-    public void setSalario(BigDecimal salario) {
-        this.salario = salario;
-    }
 }
 

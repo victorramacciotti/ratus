@@ -1,9 +1,12 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Data
 @Entity
 @Table(name = "plano")
 public class Plano {
@@ -24,45 +27,5 @@ public class Plano {
     @OneToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    public Plano(){}
-
-    /*GETTERS*/
-    public Long getId() {
-        return id;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public LocalDate getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    /*SETTERS*/
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 }
 
