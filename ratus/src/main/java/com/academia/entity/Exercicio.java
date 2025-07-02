@@ -1,56 +1,65 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "Exercicio")
+@Table(name = "exercicio")
 public class Exercicio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String nome;
 
     @Column(length = 500)
     private String descricao;
 
-    @OneToMany(mappedBy = "exercicio")
-    private List<TreinoExercicio> treinoExercicios;
+    @Column(nullable = false)
+    private int repeticoes;
 
-    // Getters and Setters
+    @Column(nullable = false)
+    private int series;
+
+    public Exercicio(){}
+
+    /*GETTERS*/
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getDescricao() {
         return descricao;
+    }
+
+    public int getRepeticoes() {
+        return repeticoes;
+    }
+
+    public int getSeries() {
+        return series;
+    }
+
+    /*SETTERS*/
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public List<TreinoExercicio> getTreinoExercicios() {
-        return treinoExercicios;
+    public void setRepeticoes(int repeticoes) {
+        this.repeticoes = repeticoes;
     }
 
-    public void setTreinoExercicios(List<TreinoExercicio> treinoExercicios) {
-        this.treinoExercicios = treinoExercicios;
+    public void setSeries(int series) {
+        this.series = series;
     }
 }
 

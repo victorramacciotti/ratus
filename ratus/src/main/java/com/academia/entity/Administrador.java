@@ -1,57 +1,33 @@
 package com.academia.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
-
 @Entity
-@Table(name = "Administrador")
+@Table(name = "administrador")
 public class Administrador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 255)
-    private String nome;
+    @OneToOne
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
 
-    // Relacionamentos (inverso)
-    @OneToMany(mappedBy = "administrador")
-    private List<Cliente> clientesGerenciados;
+    public Administrador(){}
 
-    @OneToMany(mappedBy = "administrador")
-    private List<Instrutor> instrutoresGerenciados;
-
-    // Getters and Setters
+    /*GETTERS*/
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
-    public String getNome() {
-        return nome;
+    /*SETTERS*/
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<Cliente> getClientesGerenciados() {
-        return clientesGerenciados;
-    }
-
-    public void setClientesGerenciados(List<Cliente> clientesGerenciados) {
-        this.clientesGerenciados = clientesGerenciados;
-    }
-
-    public List<Instrutor> getInstrutoresGerenciados() {
-        return instrutoresGerenciados;
-    }
-
-    public void setInstrutoresGerenciados(List<Instrutor> instrutoresGerenciados) {
-        this.instrutoresGerenciados = instrutoresGerenciados;
-    }
 }
 
