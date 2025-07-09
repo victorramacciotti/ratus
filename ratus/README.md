@@ -27,4 +27,21 @@ spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
+[comment] O mais seguro é configurar uma variável de ambiente para isso e tirar depois dos ':'
+api.security.token.secret="${JWT_SECRET:my-secret-key}"
+
 copie e cole o código acima no `application.properties` e substitua os dados pelos seus.
+
+## ⚙️ Configurações do Banco de Dados
+
+É necessário adicionar um usuário no banco de dados para fazer login, visto que a rota "/register" está liberada apenas para usuários com role admin. Para cadastrar novo usuário, basta você logar com um usuário admin e utilizar a rota "/register" com as informações do novo usuário.
+
+Para inserir o usuario com role admin, segue o INSERT recomendado:
+
+INSERT INTO `user` (`login`, `password`, `role`) VALUES
+('ADMIN', '$2a$10$ZDH/rZJWz73RSOQ6FzwfrOTz7lPkzfBTKej1.EB5w2qqtocwSOzFa', 0);
+
+Para Logar nesse usuário
+
+login: "ADMIN", </br>
+password: "ratus.academia.admin"

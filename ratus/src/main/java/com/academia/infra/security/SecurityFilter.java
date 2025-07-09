@@ -2,6 +2,7 @@ package com.academia.infra.security;
 
 import com.academia.repository.UserRepository;
 import com.academia.service.AuthorizationService;
+import com.academia.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;

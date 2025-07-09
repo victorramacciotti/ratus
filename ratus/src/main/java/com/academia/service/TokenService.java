@@ -1,4 +1,4 @@
-package com.academia.infra.security;
+package com.academia.service;
 
 import com.academia.entity.User.User;
 import com.auth0.jwt.JWT;

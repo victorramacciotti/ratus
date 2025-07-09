@@ -46,10 +46,15 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/logout").authenticated() // Ter acesso ou logout somente se tiver login
 
                         // Rotas Clientes
-                        .requestMatchers(HttpMethod.GET, "/api/path").hasAnyRole("ADMIN", "USER") // Exemplo: ADMIN ou USER podem listar
+                        .requestMatchers(HttpMethod.GET, "/api/path").hasAnyRole("ADMIN", "RECEPCIONIST", "INSTRUCTOR") // Exemplo: ADMIN ou USER podem listar
                         .requestMatchers(HttpMethod.POST, "/api/path").hasRole("ADMIN") // Se apenas ADMIN pode criar
                         .requestMatchers(HttpMethod.DELETE, "/api/{cpf}").hasRole("ADMIN") // Exemplo: Apenas ADMIN pode deletar
-                        .requestMatchers("/hello").permitAll()
+
+                        // Rotas Hello Word
+                        .requestMatchers(HttpMethod.GET, "/hello").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/hello/user").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/hello/admin").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

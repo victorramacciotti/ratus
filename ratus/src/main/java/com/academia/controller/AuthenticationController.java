@@ -3,7 +3,7 @@ package com.academia.controller;
 import com.academia.entity.User.AuthenticationDTO;
 import com.academia.entity.User.RegisterDTO;
 import com.academia.entity.User.User;
-import com.academia.infra.security.TokenService;
+import com.academia.service.TokenService;
 import com.academia.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

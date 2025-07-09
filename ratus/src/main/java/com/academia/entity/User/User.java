@@ -1,5 +1,6 @@
 package com.academia.entity.User;
 
+import com.academia.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,8 +19,8 @@ import java.util.List;
 @EqualsAndHashCode(of="id")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String login;
     private String password;
     private UserRoles role;
@@ -33,16 +34,19 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return switch (role) {
-            case ADMINN -> List.of(
+            case ADMIN -> List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
-                    new SimpleGrantedAuthority("ROLE_USER")
+                    new SimpleGrantedAuthority("ROLE_RECEPTIONIST"),
+                    new SimpleGrantedAuthority("ROLE_INSTRUCTOR")
             );
-            case USER -> List.of(
-                    new SimpleGrantedAuthority("ROLE_USER")
+            case RECEPCIONIST -> List.of(
+                    new SimpleGrantedAuthority("ROLE_RECEPTIONIST")
+            );
+            case INSTRUCTOR -> List.of(
+                    new SimpleGrantedAuthority("ROLE_INSTRUCTOR")
             );
         };
     }
-
 
     @Override
     public String getUsername() {
