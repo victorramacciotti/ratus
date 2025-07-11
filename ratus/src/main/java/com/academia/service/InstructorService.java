@@ -1,7 +1,7 @@
 package com.academia.service;
 
-import com.academia.entity.instructor.InstructorRequestDTO;
-import com.academia.entity.instructor.Instructor;
+import com.academia.entity.Employee.instructor.InstructorRequestDTO;
+import com.academia.entity.Employee.instructor.Instructor;
 import com.academia.repository.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

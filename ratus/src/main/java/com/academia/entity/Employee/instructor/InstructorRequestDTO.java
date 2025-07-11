@@ -1,4 +1,4 @@
-package com.academia.entity.instructor;
+package com.academia.entity.Employee.instructor;
 
 import com.academia.enums.EscalaTrabalho;
 

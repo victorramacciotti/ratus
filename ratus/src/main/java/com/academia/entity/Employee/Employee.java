@@ -1,13 +1,11 @@
-package com.academia.entity;
+package com.academia.entity.Employee;
 
 import java.math.BigDecimal;
 import java.util.UUID; // <-- CORREÇÃO: Importe o UUID do pacote java.util
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 // import org.hibernate.validator.constraints.UUID; // <-- REMOVA ESTA IMPORTAÇÃO
-import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.academia.enums.EscalaTrabalho;
@@ -22,7 +20,7 @@ import jakarta.validation.constraints.Email;
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Funcionario {
+public abstract class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

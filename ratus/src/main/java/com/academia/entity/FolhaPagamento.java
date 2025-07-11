@@ -2,6 +2,7 @@ package com.academia.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.academia.entity.Employee.Employee;
 import com.academia.enums.MesReferenteAPagamento;
 
 import jakarta.persistence.Column;
@@ -37,5 +38,5 @@ public class FolhaPagamento {
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
-    private Funcionario funcionario;
+    private Employee funcionario;
 }

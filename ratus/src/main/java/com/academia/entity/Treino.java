@@ -1,6 +1,6 @@
 package com.academia.entity;
 
-import com.academia.entity.instructor.Instructor;
+import com.academia.entity.Employee.instructor.Instructor;
 import jakarta.persistence.*;
 import lombok.Data;
 

@@ -1,19 +1,16 @@
-package com.academia.entity.instructor;
+package com.academia.entity.Employee.Administrator;
 
-import com.academia.entity.Funcionario;
+import com.academia.entity.Employee.Employee;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "instrutor")
+@Table(name = "administrador")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "funcionario_id")
 @EqualsAndHashCode(callSuper = true)
-public class Instructor extends Funcionario {
-
-    private String especialidade;
-}
+public class Administrator extends Employee {}
 

@@ -1,8 +1,8 @@
 package com.academia.controller;
 
-import com.academia.entity.instructor.Instructor;
-import com.academia.entity.instructor.InstructorRequestDTO;
-import com.academia.entity.instructor.InstructorResponseDTO;
+import com.academia.entity.Employee.instructor.Instructor;
+import com.academia.entity.Employee.instructor.InstructorRequestDTO;
+import com.academia.entity.Employee.instructor.InstructorResponseDTO;
 import com.academia.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
