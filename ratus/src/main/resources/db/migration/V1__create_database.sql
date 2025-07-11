@@ -141,7 +141,7 @@ CREATE TABLE treino_cliente (
 
 -- Tabela user (para autenticação, pode ser usada para login de funcionários ou outros usuários)
 CREATE TABLE user (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BINARY(16) NOT NULL,
     login VARCHAR(255) UNIQUE, -- Login deve ser único
     password VARCHAR(255),
     role VARCHAR(20), -- Ou use ENUM('ADMIN', 'USER') se mais genérico
