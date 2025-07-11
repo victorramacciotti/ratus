@@ -8,8 +8,6 @@ import lombok.*;
 @Table(name = "administrador")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "funcionario_id")
 @EqualsAndHashCode(callSuper = true)
 public class Administrator extends Employee {}

@@ -8,8 +8,6 @@ import lombok.*;
 @Table(name = "recepcionista")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @PrimaryKeyJoinColumn(name = "funcionario_id")
 @EqualsAndHashCode(callSuper = true)
 public class Recepcionist extends Employee {}
