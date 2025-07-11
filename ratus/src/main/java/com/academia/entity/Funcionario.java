@@ -1,30 +1,32 @@
 package com.academia.entity;
 
 import java.math.BigDecimal;
+import java.util.UUID; // <-- CORREÇÃO: Importe o UUID do pacote java.util
 
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+// import org.hibernate.validator.constraints.UUID; // <-- REMOVA ESTA IMPORTAÇÃO
+import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.academia.enums.EscalaTrabalho;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
 
-@Data
 @Entity
 @Table(name = "funcionario")
-public class Funcionario {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of="id")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Funcionario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @CPF
     @Column(nullable = false, unique = true)
@@ -36,7 +38,7 @@ public class Funcionario {
     @Email
     @Column(nullable = false, unique = true)
     private String email;
-    
+
     private String telefone;
 
     @Column(name = "escala_trabalho")
@@ -46,4 +48,3 @@ public class Funcionario {
     @Column(precision = 10, scale = 2)
     private BigDecimal salario;
 }
-

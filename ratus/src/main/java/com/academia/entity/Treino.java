@@ -1,5 +1,6 @@
 package com.academia.entity;
 
+import com.academia.entity.instructor.Instructor;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,6 @@ public class Treino {
 
     @ManyToOne
     @JoinColumn(name = "instrutor_id")
-    private Instrutor instrutor;
+    private Instructor instrutor;
 }
 

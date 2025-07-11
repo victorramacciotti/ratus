@@ -50,6 +50,11 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/path").hasRole("ADMIN") // Se apenas ADMIN pode criar
                         .requestMatchers(HttpMethod.DELETE, "/api/{cpf}").hasRole("ADMIN") // Exemplo: Apenas ADMIN pode deletar
 
+                        // Rotas Instrutores
+                        .requestMatchers(HttpMethod.GET, "/instrutores/*").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/instrutores").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/instrutores/{id}").hasRole("ADMIN")
+
                         // Rotas Hello Word
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/hello/user").authenticated()
