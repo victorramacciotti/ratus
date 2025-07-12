@@ -46,9 +46,44 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/logout").authenticated() // Ter acesso ou logout somente se tiver login
 
                         // Rotas Clientes
-                        .requestMatchers(HttpMethod.GET, "/api/path").hasAnyRole("ADMIN", "RECEPCIONIST", "INSTRUCTOR") // Exemplo: ADMIN ou USER podem listar
-                        .requestMatchers(HttpMethod.POST, "/api/path").hasRole("ADMIN") // Se apenas ADMIN pode criar
-                        .requestMatchers(HttpMethod.DELETE, "/api/{cpf}").hasRole("ADMIN") // Exemplo: Apenas ADMIN pode deletar
+                        .requestMatchers(HttpMethod.POST, "/clientes").hasAnyRole("ADMIN", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.GET, "/clientes").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/clientes/**").hasAnyRole("ADMIN", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.DELETE, "/clientes").hasRole("ADMIN")
+
+                        // Rotas Instrutores
+                        .requestMatchers(HttpMethod.GET, "/instrutores/*").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/instrutores").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/instrutores/{id}").hasRole("ADMIN")
+
+                        // Rotas de Exercício
+                        .requestMatchers(HttpMethod.POST, "/exercicios").hasAnyRole("ADMIN", "INSTRUCTOR")
+                        .requestMatchers(HttpMethod.GET, "/api/exercicios/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/exercicios/**").hasAnyRole("ADMIN", "INSTRUCTOR")
+                        .requestMatchers(HttpMethod.DELETE, "/exercicios/**").hasAnyRole("ADMIN")
+
+                        // Rotas de Treino
+                        .requestMatchers(HttpMethod.POST, "/api/treinos").hasAnyRole("ADMIN", "INSTRUTOR")
+                        .requestMatchers(HttpMethod.GET, "/api/treinos/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/treinos/**").hasAnyRole("ADMIN", "INSTRUTOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/treinos/**").hasAnyRole("ADMIN", "INSTRUTOR")
+
+                        // Rotas Execução de Exercício
+                        .requestMatchers(HttpMethod.POST, "/execucoes-exercicios").hasAnyRole("ADMIN", "INSTRUTOR")
+                        .requestMatchers(HttpMethod.GET, "/execucoes-exercicios/**").hasAnyRole("ADMIN", "INSTRUTOR", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.GET, "/execucoes-exercicios/cliente/**").hasAnyRole("ADMIN", "INSTRUTOR", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.PUT, "/execucoes-exercicios/**").hasAnyRole("ADMIN", "INSTRUTOR")
+                        .requestMatchers(HttpMethod.DELETE, "/execucoes-exercicios/**").hasAnyRole("ADMIN")
+
+                        // Rotas Sugestão Treino
+                        .requestMatchers(HttpMethod.POST, "/sugestoes-treinos").hasAnyRole("ADMIN", "INSTRUTOR")
+
+                        // Rotas Folha de Pagamento
+                        .requestMatchers(HttpMethod.POST, "/api/folhas-pagamento").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/folhas-pagamento/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/folhas-pagamento/funcionario/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/folhas-pagamento/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/folhas-pagamento/**").hasRole("ADMIN")
 
                         // Rotas Hello Word
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()

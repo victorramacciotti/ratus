@@ -2,6 +2,7 @@ package com.academia.entity;
 
 import java.time.LocalDate;
 
+import com.academia.entity.cliente.Cliente;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

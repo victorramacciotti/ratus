@@ -1,17 +1,16 @@
 package com.academia.repository;
 
+import com.academia.entity.cliente.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.academia.entity.Cliente;
-
 import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
+import java.util.UUID;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
+public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
+
     Optional<Cliente> findByCpf(String cpf);
-    boolean existsByEmail(String email); 
-    boolean existsByCpf(String cpf);
+
+    Optional<Cliente> findByEmail(String email);
 }

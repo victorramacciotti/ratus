@@ -3,7 +3,7 @@ package com.academia.enums;
 public enum MesReferenteAPagamento {
     JANEIRO,
     FEVEREIRO,
-    MARÇO,
+    MARCO,
     ABRIL,
     MAIO,
     JUNHO,

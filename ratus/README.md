@@ -23,9 +23,7 @@ spring.datasource.username=SEU_USUARIO_AQUI
 spring.datasource.password=SUA_SENHA_AQUI
 spring.datasource.url=jdbc:mysql://SEU_HOST_AQUI:PORTA/SEU_BANCO_AQUI
 
-spring.jpa.generate-ddl=true
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
+spring.flyway.enabled=true
 
 [comment] O mais seguro é configurar uma variável de ambiente para isso e tirar depois dos ':'
 api.security.token.secret="${JWT_SECRET:my-secret-key}"
