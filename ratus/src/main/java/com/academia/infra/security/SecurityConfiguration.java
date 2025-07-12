@@ -78,6 +78,13 @@ public class SecurityConfiguration {
                         // Rotas Sugestão Treino
                         .requestMatchers(HttpMethod.POST, "/sugestoes-treinos").hasAnyRole("ADMIN", "INSTRUTOR")
 
+                        // Rotas Folha de Pagamento
+                        .requestMatchers(HttpMethod.POST, "/api/folhas-pagamento").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/folhas-pagamento/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/folhas-pagamento/funcionario/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/folhas-pagamento/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/folhas-pagamento/**").hasRole("ADMIN")
+
                         // Rotas Hello Word
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/hello/user").authenticated()
