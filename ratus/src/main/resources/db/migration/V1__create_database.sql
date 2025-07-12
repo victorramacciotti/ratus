@@ -167,3 +167,17 @@ CREATE TABLE `user` ( -- 'user' é uma palavra reservada, usar aspas
     role VARCHAR(20),
     PRIMARY KEY (id)
 );
+
+-- Tabela Execucao_Exercicio para registrar o histórico de execução de exercícios
+CREATE TABLE execucao_exercicio (
+    id_execucao_exercicio BINARY(16) PRIMARY KEY,
+    id_cliente BINARY(16) NOT NULL,
+    id_exercicio_treino BINARY(16) NOT NULL,
+    data_execucao DATETIME NOT NULL,
+    series_realizadas INT NOT NULL,
+    repeticoes_realizadas INT NOT NULL,
+    carga_realizada_kg DECIMAL(10, 2),
+    observacoes VARCHAR(500),
+    CONSTRAINT FK_EXEC_EX_CLIENTE FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente),
+    CONSTRAINT FK_EXEC_EX_EXERCICIO_TREINO FOREIGN KEY (id_exercicio_treino) REFERENCES exercicio_treino (id_exercicio_treino)
+);
