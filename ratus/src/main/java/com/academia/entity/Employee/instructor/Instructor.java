@@ -10,10 +10,10 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@PrimaryKeyJoinColumn(name = "funcionario_id")
+@PrimaryKeyJoinColumn(name = "id_funcionario") // Nome da coluna da chave estrangeira
 @EqualsAndHashCode(callSuper = true)
 public class Instructor extends Employee {
 
+    @Column(name = "especialidade_instrutor") // Nome da coluna
     private String especialidade;
 }
-

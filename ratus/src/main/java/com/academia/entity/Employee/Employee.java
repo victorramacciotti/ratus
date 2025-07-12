@@ -1,11 +1,10 @@
 package com.academia.entity.Employee;
 
 import java.math.BigDecimal;
-import java.util.UUID; // <-- CORREÇÃO: Importe o UUID do pacote java.util
+import java.util.UUID;
 
 import jakarta.persistence.*;
 import lombok.*;
-// import org.hibernate.validator.constraints.UUID; // <-- REMOVA ESTA IMPORTAÇÃO
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.academia.enums.EscalaTrabalho;
@@ -24,25 +23,27 @@ public abstract class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id_funcionario")
     private UUID id;
 
     @CPF
-    @Column(nullable = false, unique = true)
+    @Column(name = "cpf_funcionario", nullable = false, unique = true)
     private String cpf;
 
-    @Column(nullable = false)
+    @Column(name = "nome_funcionario", nullable = false)
     private String nome;
 
     @Email
-    @Column(nullable = false, unique = true)
+    @Column(name = "email_funcionario", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "telefone_funcionario")
     private String telefone;
 
     @Column(name = "escala_trabalho")
     @Enumerated(EnumType.STRING)
     private EscalaTrabalho escalaTrabalho;
 
-    @Column(precision = 10, scale = 2)
+    @Column(name = "salario_funcionario", precision = 10, scale = 2)
     private BigDecimal salario;
 }
