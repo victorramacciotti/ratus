@@ -1,4 +1,4 @@
-package com.academia.entity;
+package com.academia.entity.exercicioTreino;
 
 import com.academia.entity.Exercicio.Exercicio;
 import com.academia.entity.treino.Treino;
