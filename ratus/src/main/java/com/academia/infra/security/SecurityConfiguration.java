@@ -46,9 +46,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/logout").authenticated() // Ter acesso ou logout somente se tiver login
 
                         // Rotas Clientes
-                        .requestMatchers(HttpMethod.GET, "/api/path").hasAnyRole("ADMIN", "RECEPCIONIST", "INSTRUCTOR") // Exemplo: ADMIN ou USER podem listar
-                        .requestMatchers(HttpMethod.POST, "/api/path").hasRole("ADMIN") // Se apenas ADMIN pode criar
-                        .requestMatchers(HttpMethod.DELETE, "/api/{cpf}").hasRole("ADMIN") // Exemplo: Apenas ADMIN pode deletar
+                        .requestMatchers(HttpMethod.POST, "/clientes").hasAnyRole("ADMIN", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.GET, "/clientes").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/clientes/**").hasAnyRole("ADMIN", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.DELETE, "/clientes").hasRole("ADMIN")
 
                         // Rotas Instrutores
                         .requestMatchers(HttpMethod.GET, "/instrutores/*").authenticated()

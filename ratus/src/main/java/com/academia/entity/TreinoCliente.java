@@ -1,5 +1,7 @@
 package com.academia.entity;
 
+import com.academia.entity.cliente.Cliente;
+import com.academia.entity.treino.Treino;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

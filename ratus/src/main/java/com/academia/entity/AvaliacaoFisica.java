@@ -2,6 +2,7 @@ package com.academia.entity;
 
 import java.math.BigDecimal;
 
+import com.academia.entity.cliente.Cliente;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

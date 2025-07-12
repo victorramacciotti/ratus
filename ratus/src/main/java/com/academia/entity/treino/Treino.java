@@ -1,6 +1,8 @@
-package com.academia.entity;
+package com.academia.entity.treino;
 
 import com.academia.entity.Employee.instructor.Instructor;
+import com.academia.entity.ExercicioTreino;
+import com.academia.entity.cliente.Cliente;
 import com.academia.enums.DiasDaSemana;
 import jakarta.persistence.*;
 import lombok.*;

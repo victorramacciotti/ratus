@@ -2,6 +2,8 @@ package com.academia.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.academia.entity.cliente.Cliente;
 import com.academia.enums.MetodoPagamento;
 import com.academia.enums.StatusPagamento;
 

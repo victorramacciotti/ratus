@@ -1,5 +1,6 @@
 package com.academia.entity;
 
+import com.academia.entity.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.Data;
 

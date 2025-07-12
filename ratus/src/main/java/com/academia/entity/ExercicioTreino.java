@@ -1,6 +1,7 @@
 package com.academia.entity;
 
 import com.academia.entity.Exercicio.Exercicio;
+import com.academia.entity.treino.Treino;
 import jakarta.persistence.*;
 import lombok.*;
 

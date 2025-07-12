@@ -1,5 +1,6 @@
-package com.academia.entity;
+package com.academia.entity.cliente;
 
+import com.academia.entity.treino.Treino;
 import jakarta.persistence.*;
 import lombok.*;
 

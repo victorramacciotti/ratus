@@ -1,62 +1,116 @@
 package com.academia.service;
 
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
-import com.academia.entity.Cliente;
+import com.academia.entity.cliente.Cliente;
+import com.academia.entity.cliente.ClienteRequestDTO;
+import com.academia.entity.cliente.ClienteResponseDTO;
+import com.academia.entity.treino.TreinoResponseDTO;
+import com.academia.exception.ResourceNotFoundException;
+import com.academia.exception.ValidationException;
 import com.academia.repository.ClienteRepository;
-import com.academia.utils.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
+
     private final ClienteRepository clienteRepository;
 
-    public ClienteService(ClienteRepository clienteRepository){
+    public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
-    //Cria um novo cliente
-    public Cliente createCliente(Cliente cliente){
-        if(cliente.getCpf() == null || cliente.getEmail() == null || cliente.getCpf().isBlank() || cliente.getEmail().isBlank()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Os campos de CPF ou Email não podem estar vazios ou ser nulos");
-        } 
-        if(!StringUtils.isCpf(cliente.getCpf())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O CPF digitado é inválido");
+    // Método auxiliar para converter Cliente para ClienteResponseDTO
+    private ClienteResponseDTO convertToResponseDTO(Cliente cliente) {
+        List<TreinoResponseDTO> treinosDTO = null;
+        // Verifica se a coleção de treinos foi inicializada e não está vazia
+        if (cliente.getTreinos() != null && !cliente.getTreinos().isEmpty()) {
+            treinosDTO = cliente.getTreinos().stream()
+                    .map(treino -> new TreinoResponseDTO(
+                            treino.getId(),
+                            treino.getNome(),
+                            treino.getDescricao(),
+                            treino.getDiasDaSemana()
+                    ))
+                    .collect(Collectors.toList());
+        } else {
+            treinosDTO = List.of(); // Retorna uma lista vazia se não houver treinos
         }
-        if(this.clienteRepository.existsByEmail(cliente.getEmail())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado");
-        }
-        if(this.clienteRepository.existsByCpf(StringUtils.parseCpf(cliente.getCpf()))){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "CPF já cadastrado");
-        }
-        cliente.setCpf(StringUtils.parseCpf(cliente.getCpf()));
-        cliente.setTelefone(StringUtils.parseTelefone(cliente.getTelefone()));
-        cliente.setEmail(StringUtils.parseEmail(cliente.getEmail()));
-        return this.clienteRepository.save(cliente);
+
+        return new ClienteResponseDTO(
+                cliente.getId(),
+                cliente.getCpf(),
+                cliente.getNome(),
+                cliente.getEmail(),
+                cliente.getTelefone(),
+                treinosDTO
+        );
     }
 
-    //Lista todos os clientes criados
-    public List<Cliente> getClientes(){
-        return this.clienteRepository.findAll();
+    @Transactional
+    public ClienteResponseDTO criarCliente(ClienteRequestDTO requestDTO) {
+        if (clienteRepository.findByCpf(requestDTO.getCpf()).isPresent()) {
+            throw new ValidationException("Já existe um cliente com este CPF: " + requestDTO.getCpf());
+        }
+        if (requestDTO.getEmail() != null && !requestDTO.getEmail().isEmpty() &&
+                clienteRepository.findByEmail(requestDTO.getEmail()).isPresent()) {
+            throw new ValidationException("Já existe um cliente com este e-mail: " + requestDTO.getEmail());
+        }
+
+        Cliente cliente = new Cliente();
+        BeanUtils.copyProperties(requestDTO, cliente);
+        cliente = clienteRepository.save(cliente);
+        return convertToResponseDTO(cliente);
     }
 
-    //Deleta um cliente com base no CPF
-    public void deleteClienteByCPF(String cpf){
-        if(cpf == null || cpf.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"O campo de CPF pode estar vazio");
+    @Transactional(readOnly = true)
+    public ClienteResponseDTO buscarClientePorId(UUID id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com ID: " + id));
+        // Se a fetch strategy para treinos for LAZY, eles serão carregados aqui
+        // dentro da transação.
+        return convertToResponseDTO(cliente);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ClienteResponseDTO> listarTodosClientes() {
+        return clienteRepository.findAll().stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public ClienteResponseDTO atualizarCliente(UUID id, ClienteRequestDTO requestDTO) {
+        Cliente clienteExistente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente não encontrado com ID: " + id));
+
+        Optional<Cliente> clienteComMesmoCpf = clienteRepository.findByCpf(requestDTO.getCpf());
+        if (clienteComMesmoCpf.isPresent() && !clienteComMesmoCpf.get().getId().equals(id)) {
+            throw new ValidationException("Já existe outro cliente com este CPF: " + requestDTO.getCpf());
         }
-        if(!StringUtils.isCpf(cpf)){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O CPF digitado é inválido");
+
+        if (requestDTO.getEmail() != null && !requestDTO.getEmail().isEmpty()) {
+            Optional<Cliente> clienteComMesmoEmail = clienteRepository.findByEmail(requestDTO.getEmail());
+            if (clienteComMesmoEmail.isPresent() && !clienteComMesmoEmail.get().getId().equals(id)) {
+                throw new ValidationException("Já existe outro cliente com este e-mail: " + requestDTO.getEmail());
+            }
         }
-        if(!this.clienteRepository.existsByCpf(StringUtils.parseCpf(cpf))){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O CPF não existe na base de dados");
+
+        BeanUtils.copyProperties(requestDTO, clienteExistente, "id");
+        clienteExistente = clienteRepository.save(clienteExistente);
+        return convertToResponseDTO(clienteExistente);
+    }
+
+    @Transactional
+    public void deletarCliente(UUID id) {
+        if (!clienteRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Cliente não encontrado com ID: " + id);
         }
-        Cliente deleteCliente = this.clienteRepository.findByCpf(StringUtils.parseCpf(cpf))
-         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
-         
-        this.clienteRepository.delete(deleteCliente);
+        clienteRepository.deleteById(id);
     }
 }
