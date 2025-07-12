@@ -129,13 +129,16 @@ CREATE TABLE faturas_cliente (
 
 -- Tabela folha_pagamento (FK para funcionario - ID é BINARY(16))
 CREATE TABLE folha_pagamento (
-    id BIGINT NOT NULL AUTO_INCREMENT, -- Mantido como BIGINT se não for UUID na entidade
-    data_pagamento DATE,
-    mes_referente ENUM('JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'),
-    salario_pago_mes DECIMAL(10,2),
-    id_funcionario BINARY(16), -- Alterado para BINARY(16)
-    PRIMARY KEY (id),
-    CONSTRAINT FK_FOLHA_FUNCIONARIO FOREIGN KEY (id_funcionario) REFERENCES funcionario (id_funcionario)
+    id_folha_pagamento BINARY(16) PRIMARY KEY, -- ID agora é UUID (BINARY(16))
+    id_funcionario BINARY(16) NOT NULL,
+    mes_referencia ENUM('JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO') NOT NULL, -- Usa o ENUM MesReferenteAPagamento
+    ano_referencia INT NOT NULL,
+    data_pagamento DATE NOT NULL,
+    salario_base DECIMAL(10, 2) NOT NULL,      -- Nome da coluna corrigido
+    valor_total_liquido DECIMAL(10, 2) NOT NULL, -- Adicionado
+    observacoes VARCHAR(500),
+    CONSTRAINT FK_FOLHA_PAGAMENTO_FUNCIONARIO FOREIGN KEY (id_funcionario) REFERENCES funcionario (id_funcionario),
+    CONSTRAINT UQ_FUNCIONARIO_MES_ANO UNIQUE (id_funcionario, mes_referencia, ano_referencia) -- Restrição de unicidade
 );
 
 -- Tabela frequencia (FK para cliente - ID agora é BINARY(16))
