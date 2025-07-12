@@ -90,16 +90,14 @@ CREATE TABLE exercicio (
 
 -- Tabela treino (com id_cliente, nome_treino e unique constraint)
 CREATE TABLE treino (
-    id_treino BINARY(16) NOT NULL,
-    nome_treino VARCHAR(255) NOT NULL,
-    descricao_treino MEDIUMTEXT,
-    dia_da_semana ENUM('SEGUNDA','TERCA','QUARTA','QUINTA','SEXTA','SABADO','DOMINGO') NOT NULL,
-    id_instrutor BINARY(16),
-    id_cliente BINARY(16) NOT NULL, -- FK para cliente
-    PRIMARY KEY (id_treino),
-    CONSTRAINT FK_TREINO_INSTRUTOR FOREIGN KEY (id_instrutor) REFERENCES instrutor (id_funcionario),
-    CONSTRAINT FK_TREINO_CLIENTE FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente),
-    CONSTRAINT UQ_CLIENTE_DIA_SEMANA UNIQUE (id_cliente, dia_da_semana) -- Garante um treino por cliente por dia
+   id_treino BINARY(16) PRIMARY KEY,
+   nome_treino VARCHAR(255) NOT NULL,
+   descricao_treino VARCHAR(1000),
+   dia_da_semana ENUM('SEGUNDA','TERCA','QUARTA','QUINTA','SEXTA','SABADO','DOMINGO') NOT NULL,
+   id_instrutor BINARY(16) NOT NULL,
+   id_cliente BINARY(16) NOT NULL,
+   FOREIGN KEY (id_instrutor) REFERENCES instrutor(id_funcionario),
+   FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
 );
 
 -- Tabela exercicio_treino (tabela de junção com atributos adicionais)
