@@ -14,19 +14,25 @@ import java.util.UUID;
 public class InstructorService {
 
     @Autowired
-    private InstructorRepository repository;
+    private InstructorRepository instructorRepository;
 
     public List<Instructor> findAllInstructors() {
-        return repository.findAll();
+        return instructorRepository.findAll();
     }
 
     public Optional<Instructor> findById(UUID id) {
-        return this.repository.findById(id);
+        return this.instructorRepository.findById(id);
     }
 
     public Instructor createInstrutor(InstructorRequestDTO data){
+        if (instructorRepository.findByCpf(data.cpf()).isPresent()) {
+            throw new IllegalArgumentException("Já existe um instrutor com este CPF.");
+        }
+        if (instructorRepository.findByEmail(data.email()).isPresent()) {
+            throw new IllegalArgumentException("Já existe um instrutor com este email.");
+        }
+
         Instructor newInstructor = new Instructor();
-        newInstructor.setId(data.id());
         newInstructor.setCpf(data.cpf());
         newInstructor.setNome(data.nome());
         newInstructor.setEmail(data.email());
@@ -35,7 +41,8 @@ public class InstructorService {
         newInstructor.setSalario(data.salario());
         newInstructor.setEspecialidade(data.especialidade());
 
-        repository.save(newInstructor);
+        return instructorRepository.save(newInstructor);
+    }
 
     public Optional<Instructor> updateInstructor(UUID id, InstructorRequestDTO newData) {
         return instructorRepository.findById(id)
@@ -83,8 +90,8 @@ public class InstructorService {
     }
 
     public boolean deleteInstructor(UUID id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
+        if (instructorRepository.existsById(id)) {
+            instructorRepository.deleteById(id);
             return true;
         }
         return false;
