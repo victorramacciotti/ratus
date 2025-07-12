@@ -2,7 +2,7 @@ package com.academia.enums;
 
 public enum DiasDaSemana {
     SEGUNDA,
-    TERÇA,
+    TERCA,
     QUARTA,
     QUINTA,
     SEXTA,
