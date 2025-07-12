@@ -51,6 +51,15 @@ public class InstrutorController {
         return ResponseEntity.created(uri).body(newInstructor);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<InstructorResponseDTO> updateInstructor(@PathVariable("id") UUID id, @RequestBody InstructorRequestDTO body) {
+        // Assume que o service.updateInstructor retorna o Optional<Instructor> atualizado
+        return this.instructorService.updateInstructor(id, body)
+                .map(InstructorResponseDTO::fromEntity) // Converte Instructor atualizado para DTO
+                .map(ResponseEntity::ok) // Envolve o DTO em um ResponseEntity.ok()
+                .orElse(ResponseEntity.notFound().build()); // Retorna 404 se o instrutor não for encontrado
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInstructor(@PathVariable("id") UUID id) {
         boolean deleted = instructorService.deleteInstructor(id); // O serviço agora retorna um boolean
