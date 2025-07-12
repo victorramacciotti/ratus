@@ -68,6 +68,14 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/api/treinos/**").hasAnyRole("ADMIN", "INSTRUTOR")
                         .requestMatchers(HttpMethod.DELETE, "/api/treinos/**").hasAnyRole("ADMIN", "INSTRUTOR")
 
+                        // Rotas Execução de Exercício
+                        .requestMatchers(HttpMethod.POST, "/execucoes-exercicios").hasAnyRole("ADMIN", "INSTRUTOR")
+                        .requestMatchers(HttpMethod.GET, "/execucoes-exercicios/**").hasAnyRole("ADMIN", "INSTRUTOR", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.GET, "/execucoes-exercicios/cliente/**").hasAnyRole("ADMIN", "INSTRUTOR", "RECEPCIONIST")
+                        .requestMatchers(HttpMethod.PUT, "/execucoes-exercicios/**").hasAnyRole("ADMIN", "INSTRUTOR")
+                        .requestMatchers(HttpMethod.DELETE, "/execucoes-exercicios/**").hasAnyRole("ADMIN")
+
+
                         // Rotas Hello Word
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/hello/user").authenticated()
