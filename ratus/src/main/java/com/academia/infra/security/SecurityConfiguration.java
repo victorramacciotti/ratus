@@ -55,6 +55,12 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/instrutores").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/instrutores/{id}").hasRole("ADMIN")
 
+                        // Rotas de Exercício
+                        .requestMatchers(HttpMethod.POST, "/exercicios").hasAnyRole("ADMIN", "INSTRUCTOR")
+                        .requestMatchers(HttpMethod.GET, "/api/exercicios/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/exercicios/**").hasAnyRole("ADMIN", "INSTRUCTOR")
+                        .requestMatchers(HttpMethod.DELETE, "/exercicios/**").hasAnyRole("ADMIN")
+
                         // Rotas Hello Word
                         .requestMatchers(HttpMethod.GET, "/hello").permitAll()
                         .requestMatchers(HttpMethod.GET, "/hello/user").authenticated()
